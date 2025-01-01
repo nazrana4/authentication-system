@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Welcome Page{% endblock %}</h1>
+  <button onclick="logout()">Logout</button>&nbsp;
+  <button onclick="changePassword()">Change Password</button>
+
+  <script type="text/javascript">
+    function logout() {
+      // Making a GET request to the logout route
+      fetch("{{ url_for('logout') }}", {
+        method: "GET",
+        credentials: "same-origin"  // Ensures cookies are sent along with the request
+      }).then((response) => {
+        if (response.redirected) {
+          window.location.href = response.url;  // Redirects to the new location
+        }zz
+      }).catch((error) => {
+        console.error("Error during logout:", error);
+      });
+    }
+    function changePassword() {
+      window.location.href = "{{ url_for('change_password') }}";
+    }
+    
+  </script>
+{% endblock %}
+
+{% block content %}
+    <h1>Hello. Welcome User. You are logged in</h1>
+{% endblock %}
